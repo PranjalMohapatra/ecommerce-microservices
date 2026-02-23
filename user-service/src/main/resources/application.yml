@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: user-service
+  profiles:
+    active: dev  #Which profile to use rn. Change to 'prod' before deploying to production. Spring will load application-dev.yml on top of this file.
+
+
+server:
+  port: 8081
+    # This service runs on port 8081.
+    # Every microservice gets a different port:
+    # user-service    = 8081
+    # product-service = 8082
+    # order-service   = 8083
+    # api-gateway     = 8080
+
+
+management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,metrics
+            # Which actuator endpoints to expose.
+            # health → /actuator/health
+            # info   → /actuator/info
+            # metrics → /actuator/metrics
+            # By default actuator hides everything.
+            # We explicitly say what to show.
+    endpoint:
+      health:
+        show-details: always
+          # Show detailed health info (DB status, disk space etc)
+          # 'always' = show to everyone
+          # 'never'  = hide details (use in prod for security)
+    info:
+      app:
+        name: User Service
+        version: 1.0.0       # This appears at /actuator/info endpoint
+        description: Handles user registration and authentication

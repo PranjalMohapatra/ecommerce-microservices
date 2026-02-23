@@ -1,0 +1,34 @@
+#This file is ONLY loaded when profiles: active: dev is set.
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_db?TimeZone=Asia/Kolkata
+    # This is the connection string to your Docker PostgreSQL
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+        ddl-auto: update
+          # What Hibernate does to your DB schema on startup:
+          # create      → drops all tables, creates fresh (DANGEROUS)
+          # create-drop → creates on start, drops on shutdown
+          # update      → only adds missing columns/tables (SAFE for dev)
+          # validate    → checks schema matches entities, fails if not
+          # none        → does nothing
+          # In dev: use 'update' — safe, automatic
+          # In prod: use 'validate' — never auto-change production DB!
+
+
+    show-sql: true   # Prints every SQL query Hibernate runs in console. Turn OFF in prod—too noisy, performance hit.
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    com.eccommerce: DEBUG
+    org.springframework.security: DEBUG
