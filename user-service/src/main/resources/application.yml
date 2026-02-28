@@ -3,6 +3,10 @@ spring:
     name: user-service
   profiles:
     active: dev  #Which profile to use rn. Change to 'prod' before deploying to production. Spring will load application-dev.yml on top of this file.
+  jpa:
+    open-in-view: false
+    # Disable Open Session in View to prevent lazy loading issues in REST APIs.
+    # In production, it's better to fetch all needed data in service layer and return DTOs.
 
 
 server:
